@@ -38,11 +38,6 @@ tasks:
           - name: master
             image: {{ benchmark.spec.image }}
             imagePullPolicy: {{ benchmark.spec.image_pull_policy }}
-            {%- if benchmark.spec.transport == "RDMA" %}
-            env:
-              - name: UCX_TLS
-                value: self,rc_x
-            {%- endif %}
             args:
               - mpi-master
               - --allow-run-as-root
