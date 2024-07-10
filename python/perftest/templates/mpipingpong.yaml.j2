@@ -29,10 +29,6 @@ tasks:
         {%- endif %}
       spec:
         priorityClassName: {{ benchmark.status.priority_class_name }}
-        {%- if benchmark.spec.host_network %}
-        hostNetwork: true
-        dnsPolicy: ClusterFirstWithHostNet
-        {%- endif %}
         restartPolicy: OnFailure
         initContainers:
           - {{ macros.discovery_hosts_init_container(benchmark) | indent(12) }}
