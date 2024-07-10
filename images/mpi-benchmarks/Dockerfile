@@ -5,7 +5,7 @@
 
 FROM rockylinux:9.2
 
-ARG MPITESTS_VERSION=5.8
+ARG MPITESTS_VERSION=7.1
 RUN yum install -y \
       openssh-clients openssh-server \
       rdma-core ucx-ib ucx-rdmacm \
