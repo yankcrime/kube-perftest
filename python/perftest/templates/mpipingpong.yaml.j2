@@ -142,11 +142,17 @@ tasks:
               {{ benchmark.spec.resources | toyaml | indent(14) }}
             {%- endif %}
             volumeMounts:
+              - name: libbnxt
+                mountPath: /usr/lib64/libibverbs/libbnxt_re-rdmav34.so
               {{ macros.discovery_volume_mounts(benchmark) | indent(14) }}
               - {{ macros.ssh_volume_mount(benchmark) | indent(16) }}
         volumes:
           - {{ macros.discovery_volume(benchmark) | indent(12) }}
           - {{ macros.ssh_volume(benchmark) | indent(12) }}
+          - name: libbnxt
+            hostPath:
+              path: /usr/local/lib/libbnxt_re-rdmav34.so
+              type: File
         # The workers should avoid pods from other benchmarks and each other
         # Max skew of 1 with two workers ensures they will be on separate hosts
         {{ macros.distribution_spread(benchmark, "worker") | indent(8) }}
