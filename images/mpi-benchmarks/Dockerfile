@@ -21,7 +21,9 @@ FROM ubuntu:22.04
 
 RUN apt update && apt install -y --no-install-recommends \
     openssh-server openssh-client rdma-core ucx-utils \
-    openmpi-bin libopenmpi-dev
+    openmpi-bin libopenmpi-dev ibverbs-utils strace && \
+    echo "/usr/local/lib" >> /etc/ld.so.conf && \
+    rm /usr/lib/x86_64-linux-gnu/libibverbs/libbnxt_re-rdmav34.so
 
 COPY --from=build /tmp/mpi-benchmarks/src_c/IMB-MPI1 /IMB-MPI1
 

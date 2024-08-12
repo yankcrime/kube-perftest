@@ -133,16 +133,40 @@ tasks:
               {{ benchmark.spec.resources | toyaml | indent(14) }}
             {%- endif %}
             volumeMounts:
-              - name: libbnxt
-                mountPath: /usr/lib64/libibverbs/libbnxt_re-rdmav34.so
+              - name: libbnxt-re-rdmav34
+                mountPath: /usr/local/lib/libbnxt_re-rdmav34.so
+              - name: libbnxt-re-la
+                mountPath: /usr/local/lib/libbnxt_re.la
+              - name: libbnxt-re-so
+                mountPath: /usr/local/lib/libbnxt_re.so
+              - name: libbnxt-re-a
+                mountPath: /usr/local/lib/libbnxt_re.a
+              - name: libbnxt-re-230
+                mountPath: /usr/local/lib/libbnxt_re-230.0.132.0.so
               {{ macros.discovery_volume_mounts(benchmark) | indent(14) }}
               - {{ macros.ssh_volume_mount(benchmark) | indent(16) }}
         volumes:
           - {{ macros.discovery_volume(benchmark) | indent(12) }}
           - {{ macros.ssh_volume(benchmark) | indent(12) }}
-          - name: libbnxt
+          - name: libbnxt-re-rdmav34
             hostPath:
               path: /usr/local/lib/libbnxt_re-rdmav34.so
+              type: File
+          - name: libbnxt-re-la
+            hostPath:
+              path: /usr/local/lib/libbnxt_re.la
+              type: File
+          - name: libbnxt-re-so
+            hostPath:
+              path: /usr/local/lib/libbnxt_re.so
+              type: File
+          - name: libbnxt-re-a
+            hostPath:
+              path: /usr/local/lib/libbnxt_re.a
+              type: File
+          - name: libbnxt-re-230
+            hostPath:
+              path: /usr/local/lib/libbnxt_re-230.0.132.0.so
               type: File
         # The workers should avoid pods from other benchmarks and each other
         # Max skew of 1 with two workers ensures they will be on separate hosts
